@@ -1,0 +1,4 @@
+name: portfolio
+on:
+  push:
+    branches: ["main"]
