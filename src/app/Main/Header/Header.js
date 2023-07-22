@@ -9,82 +9,34 @@ import {
 } from "@ant-design/icons";
 import React, { useState } from "react";
 // import { styled } from "styled-components";
-import { Drawer } from "antd";
+import { Drawer, message } from "antd";
 import Wrapper from "../Wrapper";
 
 export default function Header() {
-  const [menufold, setMenuFold] = useState(false);
-
-  const showDrawer = () => {
-    setMenuFold(true);
+  const handleCopyClipBoard = () => {
+    try {
+      navigator.clipboard.writeText("yooj.stud@gmail.com");
+      message.info("클립보드에 이메일주소가 복사되었어요 !");
+    } catch (error) {
+      message.info("클립보드 복사에 실패하였습니다.");
+    }
   };
-  const onClose = () => {
-    setMenuFold(false);
-  };
-
-  // const RotateHolder = styled.div`
-  //   position: relative;
-  // `;
-
-  // const Icon = styled(MenuFoldOutlined)`
-  //   position: relative;
-  //   left: ${({ menufold }) => (menufold ? "340px" : "40px")};
-
-  //   display: flex;
-  //   font-size: 1.2rem;
-  //   animation: ${({ menufold }) =>
-  //     menufold ? "spin 0.5s linear" : "spin 0.5s linear"};
-  //   transform: ${({ menufold }) =>
-  //     menufold ? "rotate(0deg)" : "rotate(180deg)"};
-
-  //   @keyframes spin {
-  //     0% {
-  //       transform: rotate(${menufold ? "180deg" : "0"});
-  //     }
-  //     100% {
-  //       transform: rotate(${menufold ? "0" : "180deg"});
-  //     }
-  //   }
-  // `;
 
   return (
     <Wrapper>
-      <div className="flex w-full text-white justify-center items-center">
-        <Drawer
-          placement="left"
-          onClose={onClose}
-          open={menufold}
-          mask={false}
-          width="300"
-        />
+      <div className="flex w-full h-16 fixed top-0 bg-[#222] text-white justify-end items-center">
         <div className="flex w-4/5 text-white justify-between items-center">
-          <div className=" justify-between items-center">
-            <MenuFoldOutlined className="text-xl" onClick={showDrawer} />
-          </div>
           <div className="flex w-40 justify-evenly items-center">
-            <GithubOutlined className="text-xl" />
-            <BoldOutlined className="text-xl" />
-            <MailOutlined className="text-xl" />
+            <a href="https://github.com/yoodeve">
+              <GithubOutlined className="text-xl" />
+            </a>
+            <a href="https://velog.io/@yoodeve">
+              <BoldOutlined className="text-xl" />
+            </a>
+            <MailOutlined onClick={handleCopyClipBoard} className="text-xl" />
           </div>
         </div>
       </div>
     </Wrapper>
   );
 }
-// const HeaderDisplay = styled.div`
-//   display: flex;
-// `;
-// const HeaderContainer = styled.div`
-//   width: 100%;
-//   height: 1.2rem;
-//   display: flex;
-//   justify-content: space-between;
-//   padding: 40px 60px 10px;
-// `;
-
-// const IconWrapper = styled.div`
-//   width: 7vw;
-//   display: flex;
-//   justify-content: space-between;
-//   font-size: 1.2rem;
-// `;
