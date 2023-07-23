@@ -1,25 +1,32 @@
-name: NEXT Deploy
+name: Build and Deploy
 on:
   push:
-    branches: master
+    branches:
+      - main
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source code.
-        uses: actions/checkout@master
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
         with:
-          ref: master
+          persist-credentials: false
 
-      - name: Install Dependencies
-        run: |
-          npm install
-          npm run build
-          
+      - name: Install and Build
+        uses: actions/setup-node@v1
+      - run: npm install
+      - run: npm run build
+      - run: npm run export
+        env:
+          CI: true
+          DEPLOY_TARGET: gh-pages
+      - run: touch out/.nojekyll
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: main  # 배포될 브랜치
+          FOLDER: src # 이 폴더에 있는 파일을 배포
+          CLEAN: true # 배포 브랜치에 있는 파일들을 자동으로 삭제
