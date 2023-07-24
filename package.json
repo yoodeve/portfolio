@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "deploy": "serverless"
+    "export": "output: export"
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
