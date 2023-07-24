@@ -5,7 +5,7 @@
   "homepage": "https://portfolio.github.io/",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "serve": "npx http-server out"
   },
   "dependencies": {
