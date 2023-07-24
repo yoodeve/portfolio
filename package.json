@@ -2,10 +2,11 @@
   "name": "nextconfig",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://portfolio.github.io/",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy\" && git subtree push --prefix out origin gh-pages",
-    "deploy": "next build && touch out/.nojekyll && git add out/ && git commit -m \"Deploy\" && git subtree push --prefix out origin gh-pages"
+    "build": "next build && next export",
+    "serve": "npx http-server out"
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
